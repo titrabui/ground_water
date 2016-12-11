@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://www.codecovers.eu/materialadmin/dashboards/dashboard -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Admin | DA NGUYEN MINH SON</title>
+	
+	<!-- BEGIN META -->
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords" content="your,keywords">
+	<meta name="description" content="Short explanation about this website">
+	<!-- END META -->
+
+	<!-- BEGIN STYLESHEETS -->
+	<link rel="stylesheet" href="./assets/css/css"  media="all"/>
+	<link rel="stylesheet" href="./assets/css/bootstrap.min.css"  media="all"/>
+	<link rel="stylesheet" href="./assets/css/materialadmin.css"  media="all"/>
+	<link rel="stylesheet" href="./assets/css/font-awesome.min.css"  media="all"/>
+	<link rel="stylesheet" href="./assets/css/material-design-iconic-font.css"  media="all"/>
+	<link rel="stylesheet" href="./assets/css/material-design-iconic-font.min.css"  media="all"/>
+	<link rel="stylesheet" href="./assets/css/rickshaw.css"  media="all"/>
+	<link rel="stylesheet" href="./assets/css/morris.core.css"  media="all"/>	
+	<!-- END STYLESHEETS -->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+<script type="text/javascript" src="http://st.f2.vnecdn.net/responsive/j/v37/interactions/cmt.widget.js"></script>
+<script type="text/javascript" src="http://www.codecovers.eu/assets/js/modules/materialadmin/libs/utils/html5shiv.js?1422823601')">
+<script type="text/javascript" src="http://www.codecovers.eu/assets/js/modules/materialadmin/libs/utils/respond.min.js?1422823601')">
+<![endif]-->
+<style type="text/css">
+	.form-control:focus {
+		box-shadow: none !important;
+	}
+
+	.btn-primary, .btn-accent {
+		border-radius: 0 !important;
+	}
+</style>
+</head>
+
+<body class="menubar-hoverable header-fixed">
+<!-- BEGIN HEADER-->
+<header id="header">		
+	<div class="headerbar">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="headerbar-left">
+			<ul class="header-nav header-nav-options">
+				<li class="header-nav-brand">
+					<div class="brand-holder">
+						<a href="http://www.codecovers.eu/materialadmin/dashboards/dashboard">
+							<span class="text-lg text-bold text-primary">UNDERGROUND WATER</span>
+						</a>
+					</div>
+				</li>
+				<li>
+					<a class="btn btn-icon-toggle menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
+						<i class="fa fa-bars"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="headerbar-right">
+			<ul class="header-nav header-nav-options">
+				<li>
+					<!-- Search form -->
+					<form class="navbar-search" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
+						</div>
+						<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+					</form>
+				</li>
+			</ul><!--end .header-nav-options -->
+			<ul class="header-nav header-nav-profile">
+				<li class="dropdown">
+					<a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
+						<img src="./assets/img/avatar/avatar1.jpg">
+						<span class="profile-info">
+							NGUYỄN MINH SƠN
+							<small>Administrator</small>
+						</span>
+					</a>
+					<ul class="dropdown-menu animation-dock">
+						<li><a href="javascript: void(0)"><i class="fa fa-fw fa-lock"></i> Lock</a></li>
+						<li><a href="javascript: void(0)"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
+					</ul><!--end .dropdown-menu -->
+				</li><!--end .dropdown -->
+			</ul><!--end .header-nav-profile -->
+			<ul class="header-nav header-nav-toggle">
+				<li>
+					<a class="btn btn-icon-toggle btn-default" href="#offcanvas-search" data-toggle="offcanvas" data-backdrop="false">
+						<i class="fa fa-ellipsis-v"></i>
+					</a>
+				</li>
+			</ul><!--end .header-nav-toggle -->
+		</div><!--end #header-navbar-collapse -->
+	</div>
+</header>
+<!-- END HEADER-->
+
+<!-- BEGIN BASE-->
+<div id="base">
+	<!-- BEGIN OFFCANVAS LEFT -->
+	<div class="offcanvas"></div>
+	<!-- END OFFCANVAS LEFT -->
+
+	<!-- BEGIN CONTENT-->
+	<div id="content">		
+		<section>
+			<div class="section-body">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<h2 class="text-primary col-sm-8" id="main-title"></h2>
+							<div class="col-sm-4 text-right">
+								<br>
+								<button type ="button" class="btn ink-reaction btn-raised btn-accent" href="javascript: void(0)" onclick="showGroupWaterColumnCreateForm()">Create</button>
+							</div>
+						</div>
+						<table class="table table-hover" id="main-table"></table>
+					</div>
+				</div>
+				<div class="row">
+					<!-- BEGIN ALERT - REVENUE -->
+					<div class="col-md-3 col-sm-6">
+					</div><!--end .card -->
+				</div><!--end .col -->
+					<!-- END ALERT - REVENUE -->
+			</div><!--end .section-body -->
+		</section>
+	</div><!--end #content-->		
+		<!-- END CONTENT -->
+
+	<!-- BEGIN MENUBAR-->
+	<div id="menubar" class="menubar-inverse  animate">
+		<div class="menubar-fixed-panel">
+			<div>
+				<a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
+					<i class="fa fa-bars"></i>
+				</a>
+			</div>
+			<div class="expanded">
+				<a href="http://www.codecovers.eu/materialadmin/dashboards/dashboard">
+					<span class="text-lg text-bold text-primary ">MATERIAL&nbsp;ADMIN</span>
+				</a>
+			</div>
+		</div>
+		<div class="nano has-scrollbar" style="height: 549px;">
+			<div class="nano-content" tabindex="0" style="right: -17px;">
+				<div class="menubar-scroll-panel" style="padding-bottom: 33px;">
+					<!-- BEGIN MAIN MENU -->
+					<ul id="main-menu" class="gui-controls">
+						<!-- BEGIN DASHBOARD -->
+						<li class="active expanding">
+							<a href="http://www.codecovers.eu/materialadmin/dashboards/dashboard" class="active">
+								<div class="gui-icon"><i class="zmdi zmdi-home"></i></div>
+								<span class="title">Dashboard</span>
+							</a>
+						</li><!--end /menu-li -->
+						<!-- END DASHBOARD -->
+						
+						<!-- BEGIN EMAIL -->
+						<li class="gui-folder">
+							<a>
+								<div class="gui-icon"><i class="zmdi zmdi-email"></i></div>
+								<span class="title">Category 1</span>
+							</a>
+							<!--start submenu -->
+							<ul style="">
+								<li><a href=""><span class="title">Sub Category 1</span></a></li>
+								<li><a href=""><span class="title">Sub Category 2</span></a></li>
+								<li><a href=""><span class="title">Sub Category 3</span></a></li>
+								<li><a href=""><span class="title">Sub Category 4</span></a></li>
+							</ul><!--end /submenu -->
+						</li><!--end /menu-li -->
+						<!-- END EMAIL -->	
+					</ul><!--end .main-menu -->
+					<!-- END MAIN MENU -->
+
+					<div class="menubar-foot-panel">
+						<small class="no-linebreak hidden-folded">
+							<span class="opacity-75">Copyright © 2016</span> <strong>Nguyen Minh Son</strong>
+						</small>
+					</div>
+				</div>
+			</div>
+			<div class="nano-pane" style="display: none;">
+				<div class="nano-slider" style="height: 533px; transform: translate(0px, 0px);"></div>
+			</div>
+		</div><!--end .menubar-scroll-panel-->
+	</div><!--end #menubar-->
+	<!-- END MENUBAR -->
+
+
+</div><!--end #base-->	
+<!-- END BASE -->
+
+<!-- Modal -->
+<div class="modal fade" id="groupwatercolumn-modal" role="dialog">
+	<div class="modal-dialog" style="width: 650px;">
+		<form class="form">
+			<div class="card">
+				<div class="card-head style-primary">
+					<div class="tools">
+						<div class="btn-group">
+							<a class="btn btn-icon-toggle btn-close"><i class="fa fa-close"></i></a>
+						</div>
+					</div>
+					<header><i class="fa fa-fw fa-tag"></i> Create Group Water Column</header>
+				</div><!--end .card-head -->
+				<div class="card-body floating-label">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-location-arrow fa-2x"></i></span>
+							<div class="input-group-content">
+								<input type="text" class="form-control" id="groupwatercolumnname">
+								<label for="groupwatercolumnname">Name</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<span class="input-group-addon"><i class="fa fa-map-marker fa-2x"></i></span>
+								<div class="input-group-content">
+									<input type="text" class="form-control" id="groupwatercolumnlatitude">
+									<label for="groupwatercolumnlatitude">Latitude</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<span class="input-group-addon"><i class="fa fa-map-marker fa-2x"></i></span>
+								<div class="input-group-content">
+									<input type="text" class="form-control" id="groupwatercolumnlongitude">
+									<label for="groupwatercolumnlongitude">Longitude</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<span class="input-group-addon"><i class="fa fa-pencil-square-o fa-2x"></i></span>
+						<div class="input-group-content">
+							<textarea class="form-control" id="groupwatercolumnnote" rows="3"></textarea>
+							<label for="groupwatercolumnnote">Note</label>
+						</div>
+					</div>
+				</div>
+				<div class="card-actionbar">
+					<div class="card-actionbar-row">
+						<a class="btn ink-reaction btn-raised btn-primary" href="javascript: void(0)" onclick="createGroupWaterColumn(1)">Submit</a>
+					</div>
+				</div>
+			</div><!--end .card -->
+		</form>
+	</div>
+</div>
+
+<!-- BEGIN JAVASCRIPT -->
+
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/jquery/jquery-3.1.1.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/jquery/jquery-migrate-1.3.0.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/bootstrap/bootstrap.min.js"></script>
+
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/spin.js/spin.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/autosize/jquery.autosize.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/moment/moment.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/core/cache/ec2c8835c9f9fbb7b8cd36464b491e73.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/jquery-knob/jquery.knob.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/sparkline/jquery.sparkline.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/core/cache/43ef607ee92d94826432d1d6f09372e1.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/rickshaw/rickshaw.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/core/cache/63d0445130d69b2868a8d28c93309746.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/core/demo/Demo.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/groupwatercolumn.js"></script>
+<!-- END JAVASCRIPT -->
+
+<div id="device-breakpoints"><div class="device-xs visible-xs" data-breakpoint="xs"></div><div class="device-sm visible-sm" data-breakpoint="sm"></div><div class="device-md visible-md" data-breakpoint="md"></div><div class="device-lg visible-lg" data-breakpoint="lg"></div></div><div style="left: 439px; top: 324px; position: absolute;" data-original-title="" title=""></div></body></html>
