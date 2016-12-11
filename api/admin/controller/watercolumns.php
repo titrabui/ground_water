@@ -59,6 +59,117 @@ class WaterColumns extends API
 			$this->response($this->json($res), 200);
 		}
 	}
+
+	public function create() {
+		if ($this->get_request_method() != "POST") {
+			$this->response(
+				$this->json(
+					array(
+						'status' => 'false',
+						'message' => 'method not allowed.'
+					)
+				),
+				405
+			);
+		}
+
+		$watercolumn['groupwatercolumn_id'] = $_POST['groupwatercolumn_id'];
+		$watercolumn['name'] = $_POST['name'];
+		$watercolumn['height'] = $_POST['height'];
+		$watercolumn['latitude'] = $_POST['latitude'];
+		$watercolumn['longitude'] = $_POST['longitude'];
+		$watercolumn['note'] = $_POST['note'];
+		$watercolumn['gmsnumber'] = $_POST['gmsnumber'];
+
+		$listvalue = Model_WaterColumn::CreateWaterColumn($watercolumn);
+		if ($listvalue) {
+			$res = array(
+				'status' => 'true',
+				'message' => "true"
+			);
+			$this->response($this->json($watercolumn), 200);
+		}
+		else
+		{
+			$res = array(
+				'status' => 'true',
+				'message' => "false"
+			);
+			$this->response($this->json($watercolumn), 200);
+		}
+	}
+
+	public function edit() {
+		if ($this->get_request_method() != "POST") {
+			$this->response(
+				$this->json(
+					array(
+						'status' => 'false',
+						'message' => 'method not allowed.'
+					)
+				),
+				405
+			);
+		}
+
+		$watercolumn['id'] = $_POST['id'];
+		$watercolumn['name'] = $_POST['name'];
+		$watercolumn['height'] = $_POST['height'];
+		$watercolumn['latitude'] = $_POST['latitude'];
+		$watercolumn['longitude'] = $_POST['longitude'];
+		$watercolumn['note'] = $_POST['note'];
+		$watercolumn['gmsnumber'] = $_POST['gmsnumber'];
+
+		$listvalue = Model_WaterColumn::EditWaterColumn($watercolumn);
+		if ($listvalue) {
+			$res = array(
+				'status' => 'true',
+				'message' => "true"
+			);
+			$this->response($this->json($res), 200);
+		}
+		else
+		{
+			$res = array(
+				'status' => 'true',
+				'message' => "false"
+			);
+			$this->response($this->json($res), 200);
+		}
+	}
+
+	public function delete() {
+		if ($this->get_request_method() != "POST") {
+			$this->response(
+				$this->json(
+					array(
+						'status' => 'false',
+						'message' => 'method not allowed.'
+					)
+				),
+				405
+			);
+		}
+
+		$watercolumn['id'] = $_POST['id'];
+
+		$listvalue = Model_WaterColumn::DeleteWaterColumn($watercolumn);
+		if ($listvalue) {
+			$res = array(
+				'status' => 'true',
+				'message' => "true"
+			);
+			$this->response($this->json($res), 200);
+		}
+		else
+		{
+			$res = array(
+				'status' => 'true',
+				'message' => "false"
+			);
+			$this->response($this->json($res), 200);
+		}
+	}
 }
 
 $init = new WaterColumns;

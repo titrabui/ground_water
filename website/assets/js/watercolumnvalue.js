@@ -80,8 +80,9 @@ function parseDataToWaterColumnValueTable(data, groupwatercolumn_id, groupwaterc
 function requestWaterColumnValue(groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name) {
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/ground_water/api/admin/controller/watercolumns.php?action=request',
+		url: 'http://localhost/ground_water/api/admin/controller/watercolumns.php?',
 		data: {
+			'action': 'request';
 			'id' :  watercolumn_id
 		},
 		dataType: 'json',

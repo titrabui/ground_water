@@ -49,4 +49,28 @@ class Model_WaterColumn extends Model
 
 		return $result;
 	}
+
+	public static function CreateWaterColumn($array_data = array())
+	{
+		$storeprocedure = "createwatercolumn";
+		$result = DataAcess::executeNonQuery($storeprocedure, $array_data);
+
+		return $result;
+	}
+
+	public static function EditWaterColumn($array_data = array())
+	{
+		$storeprocedure = "editwatercolumn";
+		$result = DataAcess::executeNonQuery($storeprocedure, $array_data);
+
+		return $result;
+	}
+
+	public static function DeleteWaterColumn($array_data = array())
+	{
+		$storeprocedure = "deletewatercolumn";
+		$result = DataAcess::executeNonQuery($storeprocedure, $array_data);
+
+		return $result;
+	}
 }
