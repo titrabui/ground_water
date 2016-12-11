@@ -1,26 +1,27 @@
-$(document).ready(function(){
-	loadGroupWaterColumnTable();
-});
-
-function loadGroupWaterColumnTable() {
+function loadWaterColumnTable(groupwatercolumn_id, groupwatercolumn_name) {
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost/ground_water/api/admin/controller/groupwatercolumns.php?',
+		url: 'http://localhost/ground_water/api/admin/controller/watercolumns.php?',
 		data: {
-			'action' : 'get_by_areaid',
-			'id' :  1
+			'action' : 'get_by_groupid',
+			'id' :  groupwatercolumn_id
 		},
 		dataType: 'json',
 		error: function(data) {
 			console.log(data);
 		},
 		success: function (data) {
-			parseDataToGroupWaterColumnTable(data.message);
+
+			if (data.message != 'NoData') {
+				parseDataToWaterColumnTable(data.message, groupwatercolumn_id, groupwatercolumn_name);
+			} else {
+				parseDataToWaterColumnTable([], groupwatercolumn_id, groupwatercolumn_name);
+			}
 		}
 	});
 }
 
-function parseDataToGroupWaterColumnTable(data) {
+function parseDataToWaterColumnTable(data, groupwatercolumn_id, groupwatercolumn_name) {
 	var mainTable = document.getElementById('main-table');
 	var mainTitle = document.getElementById('main-title');
 	var mainTopNavigation = document.getElementById('top-navigation');
@@ -32,10 +33,12 @@ function parseDataToGroupWaterColumnTable(data) {
 	resultOfTableHTML = `<thead>
 							<tr>
 								<th>No</th>
-								<th>Group Water Name</th>
+								<th>Name</th>
+								<th>Height</th>
 								<th>Latitude</th>
 								<th>Longitude</th>
 								<th>Note</th>
+								<th>GMS Number</th>
 								<th class="text-right"></th>
 							</tr>
 						</thead>
@@ -46,27 +49,29 @@ function parseDataToGroupWaterColumnTable(data) {
 			'<tr>' +
 			'<td>' + (i + 1) +'</td>' +
 			'<td>' + data[i].name +'</td>' +
+			'<td>' + data[i].height +'</td>' +
 			'<td>' + data[i].latitude +'</td>' +
 			'<td>' + data[i].longitude +'</td>' +
 			'<td>' + data[i].note +'</td>' +
+			'<td>' + data[i].gmsnumber +'</td>' +
 			'<td class="text-right">' +
-			'<button type="button" class="btn btn-icon-toggle" onclick="loadWaterColumnTable('+ data[i].id + ',\'' + data[i].name + '\')" data-toggle="tooltip" data-placement="top" data-original-title="View Details"><i class="fa fa-eye"></i></button>' +
-			'<button type="button" class="btn btn-icon-toggle" onclick="showGroupWaterColumnEditForm('+ data[i].id +',\'' + data[i].name +'\',' + data[i].latitude + ',' + data[i].longitude + ',\'' + data[i].note + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
-			'<button type="button" class="btn btn-icon-toggle" onclick="deleteGroupWaterColumn('+ data[i].id + ')" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+			'<button type="button" class="btn btn-icon-toggle" onclick="loadWaterColumnValueTable('+ groupwatercolumn_id + ',\'' + groupwatercolumn_name + '\',' + data[i].id + ',\'' + data[i].name + '\')" data-toggle="tooltip" data-placement="top" data-original-title="View Details"><i class="fa fa-eye"></i></button>' +
+			'<button type="button" class="btn btn-icon-toggle" onclick="showWaterColumnEditForm('+ data[i].id +',\'' + data[i].name +'\',' + data[i].latitude + ',' + data[i].longitude + ',\'' + data[i].note + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+			'<button type="button" class="btn btn-icon-toggle" onclick="deleteWaterColumn('+ data[i].id + ')" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
 			'</td></tr>';
 	}
 		
 	// close tbody of table
 	resultOfTableHTML = resultOfTableHTML + '</tbody>';
 	mainTable.innerHTML = resultOfTableHTML;
-	mainTitle.innerHTML = 'AREA: ' + 'HỒ HÒA TRUNG';
+	mainTitle.innerHTML = 'HỒ HÒA TRUNG: ' + groupwatercolumn_name;
 	mainTopNavigation.innerHTML = `
 		<br>
-		<button type ="button" class="btn ink-reaction btn-raised btn-default" id="main-back" href="javascript: void(0)">Back</button>
+		<button type ="button" class="btn ink-reaction btn-raised btn-default" id="main-back" href="javascript: void(0)" onclick="loadGroupWaterColumnTable()">Back</button>
 		<button type ="button" class="btn ink-reaction btn-raised btn-accent" id="main-create" href="javascript: void(0)" onclick="showGroupWaterColumnCreateForm(1)">Create</button>`;
 }
 
-function showGroupWaterColumnCreateForm() {
+function showWaterColumnCreateForm() {
 	document.getElementById('formModalLabel').innerText = 'CREATE GROUP WATER COLUMN';
 	document.getElementById('groupwatercolumnname').value = '';
 	document.getElementById('groupwatercolumnlatitude').value = '';
@@ -76,7 +81,7 @@ function showGroupWaterColumnCreateForm() {
 	$("#groupwatercolumn-modal").modal();
 }
 
-function createGroupWaterColumn(area_id) {
+function createpWaterColumn(area_id) {
 	var name = document.getElementById('groupwatercolumnname').value;
 	var latitude = document.getElementById('groupwatercolumnlatitude').value;
 	var longitude = document.getElementById('groupwatercolumnlongitude').value;
@@ -108,7 +113,7 @@ function createGroupWaterColumn(area_id) {
 	});
 }
 
-function showGroupWaterColumnEditForm(id, name, latitude, longitude, note) {
+function showWaterColumnEditForm(id, name, latitude, longitude, note) {
 	document.getElementById('formModalLabel').innerText = 'EDIT GROUP WATER COLUMN';
 	document.getElementById('groupwatercolumnname').value = name;
 	document.getElementById('groupwatercolumnlatitude').value = latitude;
@@ -118,7 +123,7 @@ function showGroupWaterColumnEditForm(id, name, latitude, longitude, note) {
 	$("#groupwatercolumn-modal").modal();
 }
 
-function editGroupWaterColumn(id) {
+function editWaterColumn(id) {
 	var name = document.getElementById('groupwatercolumnname').value;
 	var latitude = document.getElementById('groupwatercolumnlatitude').value;
 	var longitude = document.getElementById('groupwatercolumnlongitude').value;
@@ -150,7 +155,7 @@ function editGroupWaterColumn(id) {
 	});
 }
 
-function deleteGroupWaterColumn(id) {
+function deleteWaterColumn(id) {
 
 	toastr.options.timeOut = 3000; // 3s
 	toastr.options.positionClass = "toast-top-center";

@@ -53,4 +53,12 @@ class Model_GroupWaterColumn extends Model
 
 		return $result;
 	}
+
+	public static function DeleteGroupWaterColumn($array_data = array())
+	{
+		$storeprocedure = "deletegroupwatercolumn";
+		$result = DataAcess::executeNonQuery($storeprocedure, $array_data);
+
+		return $result;
+	}
 }
