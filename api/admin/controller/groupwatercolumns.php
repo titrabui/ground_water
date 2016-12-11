@@ -61,6 +61,39 @@ class GroupWaterColumns extends API
 			$this->response($this->json($res), 200);
 		}
 	}
+
+	public function edit() {
+		if ($this->get_request_method() != "POST") {
+			$this->response(
+				$this->json(
+					array(
+						'status' => 'false',
+						'message' => 'method not allowed.'
+					)
+				),
+				405
+			);
+		}
+
+		$groupwatercolumn = $_POST;
+
+		$listvalue = Model_GroupWaterColumn::EditGroupWaterColumn($groupwatercolumn);
+		if ($listvalue) {
+			$res = array(
+				'status' => 'true',
+				'message' => "true"
+			);
+			$this->response($this->json($res), 200);
+		}
+		else
+		{
+			$res = array(
+				'status' => 'true',
+				'message' => "false"
+			);
+			$this->response($this->json($res), 200);
+		}
+	}
 }
 
 $init = new GroupWaterColumns;

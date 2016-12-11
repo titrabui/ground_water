@@ -25,6 +25,7 @@ function parseDataToGroupWaterColumnTable(data) {
 	var mainTitle = document.getElementById('main-title');
 	var resultOfTableHTML = '';
 
+	mainTable.innerHTML = '';
 	// init table HTML
 	resultOfTableHTML = `<thead>
 							<tr>
@@ -50,8 +51,8 @@ function parseDataToGroupWaterColumnTable(data) {
 			'<td>' + data[i].note +'</td>' +
 			'<td class="text-right">' +
 			'<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View Details"><i class="fa fa-eye"></i></button>' +
-			'<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
-			'<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+			'<button type="button" class="btn btn-icon-toggle" onclick="showGroupWaterColumnEditForm('+ data[i].id +',\'' + data[i].name +'\',' + data[i].latitude + ',' + data[i].longitude + ',\'' + data[i].note + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+			'<button type="button" class="btn btn-icon-toggle" onclick="deleteGroupWaterColumn('+ data[i].id + ')" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
 			'</td></tr>';
 	}
 		
@@ -62,6 +63,12 @@ function parseDataToGroupWaterColumnTable(data) {
 }
 
 function showGroupWaterColumnCreateForm() {
+	document.getElementById('formModalLabel').innerText = 'CREATE GROUP WATER COLUMN';
+	document.getElementById('groupwatercolumnname').value = '';
+	document.getElementById('groupwatercolumnlatitude').value = '';
+	document.getElementById('groupwatercolumnlongitude').value = '';
+	document.getElementById('groupwatercolumnnote').value = '';
+	document.getElementById('groupwatercolumnsubmit').onclick = function() { createGroupWaterColumn(1); };
 	$("#groupwatercolumn-modal").modal();
 }
 
@@ -70,8 +77,9 @@ function createGroupWaterColumn(area_id) {
 	var latitude = document.getElementById('groupwatercolumnlatitude').value;
 	var longitude = document.getElementById('groupwatercolumnlongitude').value;
 	var note = document.getElementById('groupwatercolumnnote').value;
+
 	toastr.options.timeOut = 3000; // 3s
-	toastr.options.positionClass = "toast-top-center"; // 3s
+	toastr.options.positionClass = "toast-top-center";
 
 	$("#groupwatercolumn-modal").modal('hide');
 
@@ -86,12 +94,53 @@ function createGroupWaterColumn(area_id) {
 			'note' : note
 		},
 		success: function(data) {
+			loadGroupWaterColumnTable();
 			toastr.success('Create success');
 		},
 		error: function(data) {
 			toastr.error('Create fail');
 		}
 	});
-
-	loadGroupWaterColumnTable();
 }
+
+function showGroupWaterColumnEditForm(id, name, latitude, longitude, note) {
+	document.getElementById('formModalLabel').innerText = 'EDIT GROUP WATER COLUMN';
+	document.getElementById('groupwatercolumnname').value = name;
+	document.getElementById('groupwatercolumnlatitude').value = latitude;
+	document.getElementById('groupwatercolumnlongitude').value = longitude;
+	document.getElementById('groupwatercolumnnote').value = note;
+	document.getElementById('groupwatercolumnsubmit').onclick = function() { editGroupWaterColumn(id); };
+	$("#groupwatercolumn-modal").modal();
+}
+
+function editGroupWaterColumn(id) {
+	var name = document.getElementById('groupwatercolumnname').value;
+	var latitude = document.getElementById('groupwatercolumnlatitude').value;
+	var longitude = document.getElementById('groupwatercolumnlongitude').value;
+	var note = document.getElementById('groupwatercolumnnote').value;
+
+	toastr.options.timeOut = 3000; // 3s
+	toastr.options.positionClass = "toast-top-center";
+
+	$("#groupwatercolumn-modal").modal('hide');
+
+	$.ajax({
+		type: 'POST',
+		url: 'http://localhost/ground_water/api/admin/controller/groupwatercolumns.php?action=edit',
+		data: {
+			'id' : id,
+			'name': name,
+			'latitude': latitude,
+			'longitude' : longitude,
+			'note' : note
+		},
+		success: function(data) {
+			loadGroupWaterColumnTable();
+			toastr.success('Edit success');
+		},
+		error: function(data) {
+			toastr.error('Edit fail');
+		}
+	});
+}
+
