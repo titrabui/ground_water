@@ -63,6 +63,75 @@ class WaterColumnValues extends API
 			$this->response($this->json($res), 200);
 		}
 	}
+
+	public function edit() {
+		if ($this->get_request_method() != "POST") {
+			$this->response(
+				$this->json(
+					array(
+						'status' => 'false',
+						'message' => 'method not allowed.'
+					)
+				),
+				405
+			);
+		}
+
+		$watercolumnvalue['id'] = $_POST['id'];
+		$watercolumnvalue['columnvalue'] = $_POST['value'];
+		$watercolumnvalue['note'] = $_POST['note'];
+		$watercolumnvalue['created_at'] = $_POST['datetime'];
+
+		$listvalue = Model_WaterColumnValue::EditWaterColumnValue($watercolumnvalue);
+		if ($listvalue) {
+			$res = array(
+				'status' => 'true',
+				'message' => "true"
+			);
+			$this->response($this->json($res), 200);
+		}
+		else
+		{
+			$res = array(
+				'status' => 'true',
+				'message' => "false"
+			);
+			$this->response($this->json($res), 200);
+		}
+	}
+
+	public function delete() {
+		if ($this->get_request_method() != "POST") {
+			$this->response(
+				$this->json(
+					array(
+						'status' => 'false',
+						'message' => 'method not allowed.'
+					)
+				),
+				405
+			);
+		}
+
+		$watercolumnvalue['id'] = $_POST['id'];
+
+		$listvalue = Model_WaterColumnValue::DeleteWaterColumnValue($watercolumnvalue);
+		if ($listvalue) {
+			$res = array(
+				'status' => 'true',
+				'message' => "true"
+			);
+			$this->response($this->json($res), 200);
+		}
+		else
+		{
+			$res = array(
+				'status' => 'true',
+				'message' => "false"
+			);
+			$this->response($this->json($res), 200);
+		}
+	}
 }
 
 $init = new WaterColumnValues;

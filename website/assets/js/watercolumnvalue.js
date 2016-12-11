@@ -61,8 +61,8 @@ function parseDataToWaterColumnValueTable(data, groupwatercolumn_id, groupwaterc
 			'<td>' + data[i].note +'</td>' +
 			'<td>' + data[i].created_at +'</td>' +
 			'<td class="text-right">' +
-			'<button type="button" class="btn btn-icon-toggle" onclick="showWaterColumnValueEditForm('+ data[i].id + ',' + data[i].value + ',\'' + data[i].note + '\',\'' + data[i].created_at +'\',\'' + groupwatercolumn_name + '\',' + watercolumn_id + ',\'' + watercolumn_name + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
-			'<button type="button" class="btn btn-icon-toggle" onclick="deleteWaterColumnValue('+ data[i].id + ',' + groupwatercolumn_name + '\',' + watercolumn_id + ',\'' + watercolumn_name + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+			'<button type="button" class="btn btn-icon-toggle" onclick="showWaterColumnValueEditForm('+ data[i].id + ',' + data[i].value + ',\'' + data[i].note + '\',\'' + data[i].created_at +'\',' + groupwatercolumn_id +',\'' + groupwatercolumn_name + '\',' + watercolumn_id + ',\'' + watercolumn_name + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+			'<button type="button" class="btn btn-icon-toggle" onclick="deleteWaterColumnValue('+ data[i].id + ',' + groupwatercolumn_id + ',\'' + groupwatercolumn_name + '\',' + watercolumn_id + ',\'' + watercolumn_name + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
 			'</td></tr>';
 	}
 		
@@ -82,7 +82,7 @@ function requestWaterColumnValue(groupwatercolumn_id, groupwatercolumn_name, wat
 		type: 'POST',
 		url: 'http://localhost/ground_water/api/admin/controller/watercolumns.php?',
 		data: {
-			'action': 'request';
+			'action': 'request',
 			'id' :  watercolumn_id
 		},
 		dataType: 'json',
@@ -129,6 +129,7 @@ function createWaterColumnValue(groupwatercolumn_id, groupwatercolumn_name, wate
 		type: 'POST',
 		url: 'http://localhost/ground_water/api/admin/controller/watercolumnvalues.php?action=create',
 		data: {
+			'action': 'create',
 			'watercolumn_id' : watercolumn_id,
 			'value': value,
 			'note' : note,
@@ -166,8 +167,9 @@ function editGroupWaterColumnValue(id, groupwatercolumn_id, groupwatercolumn_nam
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/ground_water/api/admin/controller/watercolumnvalues.php?action=edit',
+		url: 'http://localhost/ground_water/api/admin/controller/watercolumnvalues.php?',
 		data: {
+			'action': 'edit',
 			'id' : id,
 			'value': value,
 			'note' : note,
@@ -191,8 +193,9 @@ function deleteWaterColumnValue(id, groupwatercolumn_id, groupwatercolumn_name, 
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/ground_water/api/admin/controller/groupwatercolumnvalues.php?action=delete',
+		url: 'http://localhost/ground_water/api/admin/controller/watercolumnvalues.php?',
 		data: {
+			'action': 'delete',
 			'id' : id
 		},
 		success: function(data) {

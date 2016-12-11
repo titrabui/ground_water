@@ -67,4 +67,20 @@ class Model_WaterColumnValue extends Model
 		$result = DataAcess::executeNonQuery($storeprocedure, $listpara);
 		return $result;
 	}
+
+	public static function EditWaterColumnValue($array_data = array())
+	{
+		$storeprocedure = "editwatercolumnvalue";
+		$result = DataAcess::executeNonQuery($storeprocedure, $array_data);
+
+		return $result;
+	}
+
+	public static function DeleteWaterColumnValue($array_data = array())
+	{
+		$storeprocedure = "deletewatercolumnvalue";
+		$result = DataAcess::executeNonQuery($storeprocedure, $array_data);
+
+		return $result;
+	}
 }
