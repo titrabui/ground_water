@@ -1,7 +1,11 @@
 $(document).ready(function(){
+	loadGroupWaterColumnTable();
+});
+
+function loadGroupWaterColumnTable() {
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost/ground_water/admin/controller/groupwatercolumns.php?',
+		url: 'http://localhost/ground_water/api/admin/controller/groupwatercolumns.php?',
 		data: {
 			'action' : 'get_by_areaid',
 			'id' :  1
@@ -14,7 +18,7 @@ $(document).ready(function(){
 			parseDataToGroupWaterColumnTable(data.message);
 		}
 	});
-});
+}
 
 function parseDataToGroupWaterColumnTable(data) {
 	var mainTable = document.getElementById('main-table');
@@ -66,10 +70,14 @@ function createGroupWaterColumn(area_id) {
 	var latitude = document.getElementById('groupwatercolumnlatitude').value;
 	var longitude = document.getElementById('groupwatercolumnlongitude').value;
 	var note = document.getElementById('groupwatercolumnnote').value;
+	toastr.options.timeOut = 3000; // 3s
+	toastr.options.positionClass = "toast-top-center"; // 3s
+
+	$("#groupwatercolumn-modal").modal('hide');
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/ground_water/admin/controller/groupwatercolumns.php?action=create',
+		url: 'http://localhost/ground_water/api/admin/controller/groupwatercolumns.php?action=create',
 		data: {
 			'area_id' : area_id,
 			'name': name,
@@ -78,10 +86,12 @@ function createGroupWaterColumn(area_id) {
 			'note' : note
 		},
 		success: function(data) {
-			console.log(data);
+			toastr.success('Create success');
 		},
 		error: function(data) {
-			console.log(data);
+			toastr.error('Create fail');
 		}
 	});
+
+	loadGroupWaterColumnTable();
 }
