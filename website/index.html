@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="./assets/css/rickshaw.css"  media="all"/>
 	<link rel="stylesheet" href="./assets/css/morris.core.css"  media="all"/>
 	<link rel="stylesheet" href="./assets/css//toastr.css"  media="all"/>
+	<link rel="stylesheet" href="./assets/css//datepicker3.css"  media="all"/>
 	<!-- END STYLESHEETS -->
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -197,13 +198,13 @@
 </div><!--end #base-->	
 <!-- END BASE -->
 
-<!-- Modal -->
+<!-- Group Water Column Modal -->
 <div class="modal fade" id="groupwatercolumn-modal" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title" id="formModalLabel"></h4>
+				<h4 class="modal-title" id="formGroupWaterColumnModalLabel"></h4>
 			</div>
 			<form class="form-horizontal" role="form">
 				<div class="modal-body">
@@ -248,6 +249,132 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
+
+<!-- Water Column Modal -->
+<div class="modal fade" id="watercolumn-modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="formWaterColumnModalLabel"></h4>
+			</div>
+			<form class="form-horizontal" role="form">
+				<div class="modal-body">
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="watercolumnname" class="control-label">Name</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" name="watercolumnname" id="watercolumnname" class="form-control" placeholder="Name"><div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="watercolumnheight" class="control-label">Height</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" name="watercolumnheight" id="watercolumnheight" class="form-control" placeholder="Height"><div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="watercolumnlatitude" class="control-label">Latitude</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" name="watercolumnlatitude" id="watercolumnlatitude" class="form-control" placeholder="Latitude"><div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="watercolumnlongitude" class="control-label">Longitude</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" name="watercolumnlongitude" id="watercolumnlongitude" class="form-control" placeholder="Longitude"><div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="watercolumnnote" class="control-label">Note</label>
+						</div>
+						<div class="col-sm-9">
+							<textarea class="form-control" id="watercolumnnote" rows="3" placeholder="Note"></textarea><div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="watercolumngmsnumber" class="control-label">GMS Number</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" name="watercolumngmsnumber" id="watercolumngmsnumber" class="form-control" placeholder="GMS Number"><div class="form-control-line"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<a type="button" class="btn btn-accent" id="watercolumnsubmit" href="javascript:void(0)">Submit</a>
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<!-- Water Column Value Modal -->
+<div class="modal fade" id="watercolumnvalue-modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="formWaterColumnValueModalLabel"></h4>
+			</div>
+			<form class="form-horizontal" role="form">
+				<div class="modal-body">
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="watercolumnvalue" class="control-label">Value</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" name="watercolumnvalue" id="watercolumnvalue" class="form-control" placeholder="Value"><div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="watercolumnvaluenote" class="control-label">Note</label>
+						</div>
+						<div class="col-sm-9">
+							<textarea class="form-control" id="watercolumnvaluenote" rows="3" placeholder="Note"></textarea><div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="watercolumnvaluedatetime" class="control-label">Date Time</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" name="watercolumnvaluedatetime" id="watercolumnvaluedatetime" class="form-control" placeholder="YY/MM/DD hh:mm:ss"><div class="form-control-line"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<a type="button" class="btn btn-accent" id="watercolumnvaluesubmit" href="javascript:void(0)">Submit</a>
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+<!-- Request Modal -->
+<div class="modal fade" id="requestwaiting-modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="">Request susses</h4>
+			</div>
+			<div class="modal-body">
+				Please waiting for getting column value in 30s !
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
 <!-- BEGIN JAVASCRIPT -->
 
 <script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/jquery/jquery-3.1.1.min.js"></script>
@@ -269,6 +396,7 @@
 <script rel="stylesheet/javascript" src="./assets/js/watercolumn.js"></script>
 <script rel="stylesheet/javascript" src="./assets/js/watercolumnvalue.js"></script>
 <script rel="stylesheet/javascript" src="./assets/js//modules/materialadmin/libs/toastr/toastr.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js//modules/materialadmin/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <!-- END JAVASCRIPT -->
 
 <div id="device-breakpoints"><div class="device-xs visible-xs" data-breakpoint="xs"></div><div class="device-sm visible-sm" data-breakpoint="sm"></div><div class="device-md visible-md" data-breakpoint="md"></div><div class="device-lg visible-lg" data-breakpoint="lg"></div></div><div style="left: 439px; top: 324px; position: absolute;" data-original-title="" title=""></div></body></html>

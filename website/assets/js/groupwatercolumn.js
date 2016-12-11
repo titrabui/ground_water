@@ -67,7 +67,7 @@ function parseDataToGroupWaterColumnTable(data) {
 }
 
 function showGroupWaterColumnCreateForm() {
-	document.getElementById('formModalLabel').innerText = 'CREATE GROUP WATER COLUMN';
+	document.getElementById('formGroupWaterColumnModalLabel').innerText = 'CREATE GROUP WATER COLUMN';
 	document.getElementById('groupwatercolumnname').value = '';
 	document.getElementById('groupwatercolumnlatitude').value = '';
 	document.getElementById('groupwatercolumnlongitude').value = '';
@@ -109,7 +109,7 @@ function createGroupWaterColumn(area_id) {
 }
 
 function showGroupWaterColumnEditForm(id, name, latitude, longitude, note) {
-	document.getElementById('formModalLabel').innerText = 'EDIT GROUP WATER COLUMN';
+	document.getElementById('formGroupWaterColumnModalLabel').innerText = 'EDIT GROUP WATER COLUMN';
 	document.getElementById('groupwatercolumnname').value = name;
 	document.getElementById('groupwatercolumnlatitude').value = latitude;
 	document.getElementById('groupwatercolumnlongitude').value = longitude;

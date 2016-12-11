@@ -47,7 +47,7 @@ function parseDataToWaterColumnValueTable(data, groupwatercolumn_id, groupwaterc
 								<th>No</th>
 								<th>Value</th>
 								<th>Note</th>
-								<th>Date</th>
+								<th>Date Time</th>
 								<th class="text-right"></th>
 							</tr>
 						</thead>
@@ -61,8 +61,8 @@ function parseDataToWaterColumnValueTable(data, groupwatercolumn_id, groupwaterc
 			'<td>' + data[i].note +'</td>' +
 			'<td>' + data[i].created_at +'</td>' +
 			'<td class="text-right">' +
-			'<button type="button" class="btn btn-icon-toggle" onclick="showWaterColumnEditForm('+ data[i].id +',\'' + data[i].name +'\',' + data[i].latitude + ',' + data[i].longitude + ',\'' + data[i].note + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
-			'<button type="button" class="btn btn-icon-toggle" onclick="deleteWaterColumnValue('+ data[i].id + ')" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+			'<button type="button" class="btn btn-icon-toggle" onclick="showWaterColumnValueEditForm('+ data[i].id + ',' + data[i].value + ',\'' + data[i].note + '\',\'' + data[i].created_at +'\',\'' + groupwatercolumn_name + '\',' + watercolumn_id + ',\'' + watercolumn_name + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+			'<button type="button" class="btn btn-icon-toggle" onclick="deleteWaterColumnValue('+ data[i].id + ',' + groupwatercolumn_name + '\',' + watercolumn_id + ',\'' + watercolumn_name + '\')" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
 			'</td></tr>';
 	}
 		
@@ -73,11 +73,11 @@ function parseDataToWaterColumnValueTable(data, groupwatercolumn_id, groupwaterc
 	mainTopNavigation.innerHTML = mainTopNavigation.innerHTML +
 		'<br>' +
 		'<button type ="button" class="btn ink-reaction btn-raised btn-default" id="main-back" href="javascript: void(0)" onclick="loadWaterColumnTable('+ groupwatercolumn_id + ',\'' + groupwatercolumn_name + '\',' + watercolumn_id + ',\'' + watercolumn_name + '\')">Back</button>     ' +
-		'<button type ="button" class="btn ink-reaction btn-raised btn-accent" id="main-create" href="javascript: void(0)" onclick="showGroupWaterColumnCreateForm(1)">Create</button>     ' +
-		'<button type ="button" class="btn ink-reaction btn-raised btn-info" id="main-request" href="javascript: void(0)" onclick="requestWaterColumnValue('+ watercolumn_id + ')">Request</button>     ';
+		'<button type ="button" class="btn ink-reaction btn-raised btn-accent" id="main-create" href="javascript: void(0)" onclick="showWaterColumnValueCreateForm('+ groupwatercolumn_id + ',\'' + groupwatercolumn_name + '\',' + watercolumn_id + ',\'' + watercolumn_name + '\')">Create</button>     ' +
+		'<button type ="button" class="btn ink-reaction btn-raised btn-info" id="main-request" href="javascript: void(0)" onclick="requestWaterColumnValue('+ groupwatercolumn_id + ',\'' + groupwatercolumn_name + '\',' + watercolumn_id + ',\'' + watercolumn_name + '\')">Request</button>     ';
 }
 
-function requestWaterColumnValue(watercolumn_id) {
+function requestWaterColumnValue(groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name) {
 	$.ajax({
 		type: 'POST',
 		url: 'http://localhost/ground_water/api/admin/controller/watercolumns.php?action=request',
@@ -89,26 +89,34 @@ function requestWaterColumnValue(watercolumn_id) {
 			console.log(data);
 		},
 		success: function (data) {
-			console.log('success');
+			$("#requestwaiting-modal").modal();
+			setTimeout(function() {
+					$("#requestwaiting-modal").modal('hide');
+					loadWaterColumnValueTable(
+						groupwatercolumn_id,
+						groupwatercolumn_name,
+						watercolumn_id,
+						watercolumn_name
+					); 
+				}, 
+				30000
+			);
 		}
 	});
 }
 
-function showWaterColumnValueCreateForm() {
-	document.getElementById('formModalLabel').innerText = 'CREATE GROUP WATER COLUMN';
-	document.getElementById('groupwatercolumnname').value = '';
-	document.getElementById('groupwatercolumnlatitude').value = '';
-	document.getElementById('groupwatercolumnlongitude').value = '';
-	document.getElementById('groupwatercolumnnote').value = '';
-	document.getElementById('groupwatercolumnsubmit').onclick = function() { createGroupWaterColumn(1); };
-	$("#groupwatercolumn-modal").modal();
+function showWaterColumnValueCreateForm(groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name) {
+	document.getElementById('formWaterColumnValueModalLabel').innerText = 'CREATE WATER COLUMN VALUE';
+	document.getElementById('watercolumnvalue').value = '';
+	document.getElementById('watercolumnvaluenote').value = '';
+	document.getElementById('watercolumnvaluesubmit').onclick = function() { createWaterColumnValue(groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name); };
+	$("#watercolumnvalue-modal").modal();
 }
 
-function createpWaterColumnValue(area_id) {
-	var name = document.getElementById('groupwatercolumnname').value;
-	var latitude = document.getElementById('groupwatercolumnlatitude').value;
-	var longitude = document.getElementById('groupwatercolumnlongitude').value;
+function createWaterColumnValue(groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name) {
+	var value = document.getElementById('watercolumnvalue').value;
 	var note = document.getElementById('groupwatercolumnnote').value;
+	var datetime = document.getElementById('groupwatercolumndatetime').value;
 
 	toastr.options.timeOut = 3000; // 3s
 	toastr.options.positionClass = "toast-top-center";
@@ -118,16 +126,15 @@ function createpWaterColumnValue(area_id) {
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/ground_water/api/admin/controller/groupwatercolumns.php?action=create',
+		url: 'http://localhost/ground_water/api/admin/controller/watercolumnvalues.php?action=create',
 		data: {
-			'area_id' : area_id,
-			'name': name,
-			'latitude': latitude,
-			'longitude' : longitude,
-			'note' : note
+			'watercolumn_id' : watercolumn_id,
+			'value': value,
+			'note' : note,
+			'datetime': datetime
 		},
 		success: function(data) {
-			loadGroupWaterColumnTable();
+			loadWaterColumnValueTable(groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name);
 			toastr.success('Create success');
 		},
 		error: function(data) {
@@ -136,40 +143,37 @@ function createpWaterColumnValue(area_id) {
 	});
 }
 
-function showWaterColumnValueEditForm(id, name, latitude, longitude, note) {
-	document.getElementById('formModalLabel').innerText = 'EDIT GROUP WATER COLUMN';
-	document.getElementById('groupwatercolumnname').value = name;
-	document.getElementById('groupwatercolumnlatitude').value = latitude;
-	document.getElementById('groupwatercolumnlongitude').value = longitude;
-	document.getElementById('groupwatercolumnnote').value = note;
-	document.getElementById('groupwatercolumnsubmit').onclick = function() { editGroupWaterColumn(id); };
-	$("#groupwatercolumn-modal").modal();
+function showWaterColumnValueEditForm(id, value, note, datetime, groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name) {
+	document.getElementById('formWaterColumnValueModalLabel').innerText = 'EDIT GROUP WATER COLUMN VALUE';
+	document.getElementById('watercolumnvalue').value = value;
+	document.getElementById('watercolumnvaluenote').value = note;
+	document.getElementById('watercolumnvaluedatetime').value = datetime;
+	document.getElementById('watercolumnvaluesubmit').onclick = function() { editGroupWaterColumnValue(id, groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name); };
+	$("#watercolumnvalue-modal").modal();
 }
 
-function editWaterColumnValue(id) {
-	var name = document.getElementById('groupwatercolumnname').value;
-	var latitude = document.getElementById('groupwatercolumnlatitude').value;
-	var longitude = document.getElementById('groupwatercolumnlongitude').value;
-	var note = document.getElementById('groupwatercolumnnote').value;
+function editGroupWaterColumnValue(id, groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name) {
+	var value = document.getElementById('watercolumnvalue').value;
+	var note = document.getElementById('watercolumnvaluenote').value;
+	var datetime = document.getElementById('watercolumnvaluedatetime').value;
 
 	toastr.options.timeOut = 3000; // 3s
 	toastr.options.positionClass = "toast-top-center";
 	toastr.options.closeButton = true;
 
-	$("#groupwatercolumn-modal").modal('hide');
+	$("#watercolumnvalue-modal").modal('hide');
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/ground_water/api/admin/controller/groupwatercolumns.php?action=edit',
+		url: 'http://localhost/ground_water/api/admin/controller/watercolumnvalues.php?action=edit',
 		data: {
 			'id' : id,
-			'name': name,
-			'latitude': latitude,
-			'longitude' : longitude,
-			'note' : note
+			'value': value,
+			'note' : note,
+			'datetime': datetime
 		},
 		success: function(data) {
-			loadGroupWaterColumnTable();
+			loadWaterColumnValueTable(groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name);
 			toastr.success('Edit success');
 		},
 		error: function(data) {
@@ -178,7 +182,7 @@ function editWaterColumnValue(id) {
 	});
 }
 
-function deleteWaterColumnValue(id) {
+function deleteWaterColumnValue(id, groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name) {
 
 	toastr.options.timeOut = 3000; // 3s
 	toastr.options.positionClass = "toast-top-center";
@@ -186,12 +190,12 @@ function deleteWaterColumnValue(id) {
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/ground_water/api/admin/controller/groupwatercolumns.php?action=delete',
+		url: 'http://localhost/ground_water/api/admin/controller/groupwatercolumnvalues.php?action=delete',
 		data: {
 			'id' : id
 		},
 		success: function(data) {
-			loadGroupWaterColumnTable();
+			loadWaterColumnValueTable(groupwatercolumn_id, groupwatercolumn_name, watercolumn_id, watercolumn_name);
 			toastr.success('Delete success');
 		},
 		error: function(data) {
