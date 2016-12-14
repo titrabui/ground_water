@@ -60,7 +60,6 @@ class Model_WaterColumnValue extends Model
 	public static function CreateWaterValueByColumnid($columnid, $value)
 	{
 		$listpara = array();
-
 		$storeprocedure = "addnewwatervaluebycolumnid";
 		$listpara[0] = $columnid;
 		$listpara[1] = $value;

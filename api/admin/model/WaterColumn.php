@@ -42,11 +42,28 @@ class Model_WaterColumn extends Model
 		return $listvalue;
 	}
 
-	public static function RequestWaterColumn($array_data = array())
+	public static function GetRequestStatByWaterColumnid($id)
 	{
-		$storeprocedure = "requestwatercolumn";
-		$result = DataAcess::executeNonQuery($storeprocedure, $array_data);
+		$listpara = array();
+		$storeprocedure = "getrequeststatbywatercolumnid";
+		$listpara[0] = $id;
+		$ret = 0;
+		$result = DataAcess::executeReader($storeprocedure, $listpara);
+		if (mysqli_num_rows($result) > 0) {
+			while($row = $result->fetch_assoc()) {
+				$ret = $row["is_request"];
+    		}
+		}
+		mysqli_free_result($result);
+		return $ret;
+	}
 
+	public static function SetRequestStatByWaterColumnid($id)
+	{
+		$listpara = array();
+		$storeprocedure = "setrequeststatbywatercolumnid";
+		$listpara[0] = $id;
+		$result = DataAcess::executeNonQuery($storeprocedure, $listpara);
 		return $result;
 	}
 
@@ -73,4 +90,15 @@ class Model_WaterColumn extends Model
 
 		return $result;
 	}
+
+	public static function RequestWaterColumn($id)
+	{
+		$listpara = array();
+		$storeprocedure = "requestwatercolumn";
+		$listpara[0] = $id;
+		$result = DataAcess::executeNonQuery($storeprocedure, $listpara);
+		return $result;
+	}
+
+
 }

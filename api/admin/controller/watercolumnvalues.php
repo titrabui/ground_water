@@ -47,9 +47,9 @@ class WaterColumnValues extends API
 
 	public function create_by_columnid()
 	{
-		$columnid = $_GET['id'];
-		$value = $_GET['value'];
-		if ($this->get_request_method() != "PUT") {
+		$columnid = $_POST['id'];
+		$value = $_POST['value'];
+		if ($this->get_request_method() != "POST") {
 			$this->response($this->json(array('status' => 'false', 'message' => 'method not allowed.')), 405);
 		}
 
@@ -132,6 +132,8 @@ class WaterColumnValues extends API
 			$this->response($this->json($res), 200);
 		}
 	}
+
+	
 }
 
 $init = new WaterColumnValues;

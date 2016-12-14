@@ -100,7 +100,7 @@ function requestWaterColumnValue(groupwatercolumn_id, groupwatercolumn_name, wat
 						watercolumn_name
 					); 
 				}, 
-				30000
+				60000
 			);
 		}
 	});

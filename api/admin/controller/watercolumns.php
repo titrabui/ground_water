@@ -27,39 +27,6 @@ class WaterColumns extends API
 		$this->response($this->json($error), 200);
 	}
 
-	public function request() {
-		if ($this->get_request_method() != "POST") {
-			$this->response(
-				$this->json(
-					array(
-						'status' => 'false',
-						'message' => 'method not allowed.'
-					)
-				),
-				405
-			);
-		}
-
-		$watercolumn = $_POST;
-
-		$listvalue = Model_WaterColumn::RequestWaterColumn($watercolumn);
-		if ($listvalue) {
-			$res = array(
-				'status' => 'true',
-				'message' => 'true'
-			);
-			$this->response($this->json($res), 200);
-		}
-		else
-		{
-			$res = array(
-				'status' => 'true',
-				'message' => 'false'
-			);
-			$this->response($this->json($res), 200);
-		}
-	}
-
 	public function create() {
 		if ($this->get_request_method() != "POST") {
 			$this->response(
@@ -169,6 +136,54 @@ class WaterColumns extends API
 			);
 			$this->response($this->json($res), 200);
 		}
+	}
+
+
+	public function request() {
+		if ($this->get_request_method() != "POST") {
+			$this->response($this->json(array('status' => 'false', 'message' => 'method not allowed.')), 405);
+		}
+		$id = $_POST['id'];
+		$result = Model_WaterColumn::RequestWaterColumn($id);
+		if ($result) {
+			$res = array('status' => 'true', 'message' => $result);
+			$this->response($this->json($res), 200);
+		}
+
+		$error = array('status' => 'false', 'message' => $result);
+		$this->response($this->json($error), 200);
+	}
+
+	public function getrequeststatus()
+	{
+		if ($this->get_request_method() != "GET") {
+			$this->response($this->json(array('status' => 'false', 'message' => 'method not allowed.')), 405);
+		}
+
+		$id = $_GET['id'];
+		$listvalue = Model_WaterColumn::GetRequestStatByWaterColumnid($id);
+		if ($listvalue != null) {
+			$res = array('status' => 'true', 'message' => $listvalue);
+			$this->response($this->json($res), 200);
+		}
+
+		$error = array('status' => 'false', 'message' => 'NoData');
+		$this->response($this->json($error), 200);
+	}
+
+	public function setrequeststatus() {
+		if ($this->get_request_method() != "POST") {
+			$this->response($this->json(array('status' => 'false', 'message' => 'method not allowed.')), 405);
+		}
+		$id = $_POST['id'];
+		$result = Model_WaterColumn::SetRequestStatByWaterColumnid($id);
+		if ($result) {
+			$res = array('status' => 'true', 'message' => $result);
+			$this->response($this->json($res), 200);
+		}
+
+		$error = array('status' => 'false', 'message' => $result);
+		$this->response($this->json($error), 200);
 	}
 }
 
