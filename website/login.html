@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Login</title>
+	
+	<!-- BEGIN META -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords" content="your,keywords">
+	<meta name="description" content="Short explanation about this website">
+	<!-- END META -->
+
+	<!-- BEGIN STYLESHEETS -->
+	<link rel="stylesheet" href="./assets/css/css" media="all"/>
+	<link rel="stylesheet" href="./assets/css/bootstrap.min.css" media="all"/>
+	<link rel="stylesheet" href="./assets/css/materialadmin.css" media="all"/>
+	<link rel="stylesheet" href="./assets/css/font-awesome.min.css" media="all"/>
+	<link rel="stylesheet" href="./assets/css/material-design-iconic-font.css" media="all"/>
+	<link rel="stylesheet" href="./assets/css/material-design-iconic-font.min.css" media="all"/>
+	<link rel="stylesheet" href="./assets/css/toastr.css" media="all"/>
+	<link rel="stylesheet" href="./assets/css/datepicker3.css"  media="all"/>
+	<link rel="stylesheet" href="./assets/css/custom.css" media="all"/>
+	<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/jquery/jquery-3.1.1.min.js"></script>
+	<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/jquery/jquery.cookie.js"></script>
+	<script type="text/javascript">
+		if ($.cookie('is_login')) {
+			window.location.href = "/admin.html";
+		}
+	</script>
+		<!-- END STYLESHEETS -->
+	</head>
+	<body class="menubar-hoverable header-fixed ">
+	
+	<!-- BEGIN LOGIN SECTION -->
+	<section class="section-account">
+		<div class="img-backdrop" style="background-image: url(&#39;http://www.codecovers.eu/assets/img/modules/materialadmin/img16.jpg&#39;)"></div>
+		<div class="spacer"></div>
+		<div class="card contain-sm style-transparent">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3">
+						<br>
+						<span class="text-lg text-bold text-primary">UNDERGROUND WATER SYSTEM</span>
+						<br><br>
+						<form class="form floating-label">
+							<div class="form-group">
+								<input type="text" class="form-control" id="username" name="username">
+								<label for="username">Username</label>
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control" id="password" name="password">
+								<label for="password">Password</label>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-xs-6 text-left">
+									<div class="checkbox checkbox-inline checkbox-styled">
+										<label>
+											<input type="checkbox"> <span>Remember me</span>
+										</label>
+									</div>
+								</div><!--end .col -->
+								<div class="col-xs-6 text-right">
+									<a id="btn-login" class="btn btn-primary btn-raised" href="javascript:void(0)">Login</a>
+								</div><!--end .col -->
+							</div><!--end .row -->
+						</form>
+						<div class="row" id="login-fail" style="margin-top: 15px;"></div>
+					</div><!--end .col -->
+				</div><!--end .row -->
+				
+			</div><!--end .card-body -->
+		</div><!--end .card -->
+	</section>
+	<!-- END LOGIN SECTION -->
+
+	<!-- BEGIN JAVASCRIPT -->
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/jquery/jquery-3.1.1.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/jquery/jquery.cookie.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/bootstrap/bootstrap.min.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/custom.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/core/cache/63d0445130d69b2868a8d28c93309746.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/core/demo/Demo.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/toastr/toastr.js"></script>
+<script rel="stylesheet/javascript" src="./assets/js/modules/materialadmin/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<!-- END JAVASCRIPT -->
+	
+<div id="device-breakpoints"><div class="device-xs visible-xs" data-breakpoint="xs"></div><div class="device-sm visible-sm" data-breakpoint="sm"></div><div class="device-md visible-md" data-breakpoint="md"></div><div class="device-lg visible-lg" data-breakpoint="lg"></div></div></body></html>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#btn-login').click(function() {
+			$.ajax({
+				type: 'POST',
+				url: 'http://localhost/ground_water/api/admin/controller/users.php?action=login',
+				data: {
+					username: document.getElementById('username').value,
+					password: document.getElementById('password').value
+				},
+				dataType: 'json',
+				error: function(data) {
+					document.getElementById('login-fail').innerHTML = `
+					<div class="alert alert-danger" role="alert">Username or password is wrong!</div>`;
+				},
+				success: function(data) {
+					$.cookie('is_login', 'true', { expires: 7 });
+					window.location.href = "/admin.html";
+				}
+			});
+		});
+	});
+</script>

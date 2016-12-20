@@ -1,0 +1,13 @@
+.form-control:focus {
+	box-shadow: none !important;
+}
+
+.btn-primary, .btn-accent, .btn-default, .btn-info{
+	border-radius: 0 !important;
+}
+
+.modal-header {
+	background-color: #0aa89e;
+	border-color: #0aa89e;
+	color: #ffffff;
+}
